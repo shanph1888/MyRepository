@@ -6,6 +6,6 @@ public class Test {
 		int i=0;
 		System.out.println(++i);
 		
-		System.out.println("Test");
+		System.out.println("shanph");
 	  }
 	}
