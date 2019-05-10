@@ -1,5 +1,1112 @@
 
 
+1.Module生产工艺流程
+2.Open Cell生产工艺流程
+3.S2 COG工艺流程
+ 此次学习是在我查找过资料之后进行的，学习到了资料上没有查到的内容
+，之前查找的有关此次内容的资料可以说是只有工艺的雏形（大体上没有什
+么问题），只是一些小细节上没有了解透彻，本身就带着问题的，解决了一
+些我没有在资料上弄明白的问题，比如S2是什么？此次收获：顺了一下Module
+的生产工艺流程，从出货类型（又无背光源）上分为Module，Open Cell，又
+了解到Open Cell的工艺流程与Module的主要区别在于背光源上，按照面板的
+大小上分为COF和COGCOG S2在于生产的面板小于18英寸，还有在Rework时对于
+次品会先去掉其背光源。就这。
+
+20180111 fab Mes
+
+1.CF工艺流程，对比自己查找的资料，探讨了循环的问题，指出了循环到底是哪
+一块（工序上的循环），得出循环是BM和彩膜工艺中工序的循环（涂布，曝光，显影）
+对比了学习的内容和自己查找的资料的差别，完善不足之处。
+2.展示了FAB OIC开发界面，从设备员的角度进行功能逐一展示，比如，Port ID，创建lot关联
+product设定生产track in和track out每道工艺，调节生产顺序（hot），Rework in和
+Rework out（到主线上），现在能穿起来的就这么多了。
+总结：培训时能够结合实际生产的情况效果会很不错。
+
+
+20180112 BO DBA EIS
+1.oracle数据库认识及基本使用
+2.BO系统
+3.EIS系统
+
+1.oracle数据库的基本使用
+1.1Oracle数据库大的方面由三部分组成：Oracle数据库软件、实例和数据。
+培训主要从实例的内存结构、实例五大进程和数据访问的过程等三个方面
+介绍了体系结构。
+1.2我们使用oracle数据库是oracle 10.2.0.5，服务器采用
+Unix系统。1.3sql语句的基本使用。
+2.BO系统
+2.1BO是SAP公司开发的OLAP产品，主要用于存取数据库，分析数据生成报表。
+BO是EDB系统下的一个功能，主要是对EDB数据库中的数据进行分析。
+OLAP主要用途读取数据进行分析的复杂查询，OLTP主要用于读写数据等简单的业务。
+2.2BO的形成定位为：fab，mod等数据库经过ETL抓取必要的字段形成EDB数据库，
+EDB中的一些表经过后台逻辑处理最终形成BO客户端。BO客户端针对非数据库专业
+人员，通过拖拽及输入必要的过滤信息来代替SQL语句的过程的客户端。
+3.EIS系统
+EIS即equipment interface system设备接口系统。 EIS系统主要是接收生产设备、
+测量设备以及检测设备，然后传给服务端（现在公司的EIS服务器为5台，1台备用，
+每台服务器有八道进程，每个进程下有线程对应厂区内的各个设备）进行处理，通
+过TIBCO广播传递一些参数信息来完成MES和EQP之间的通信连接。
+*************************************************************************************
+
+
+FAB Mes2018.0115（0116总结）
+
+OIC系统介绍
+
+OIC即operator interface client作业员操作界面客户端，
+1.背景了解知识：一个product spec中会有许多lot放置在crate中，在CF分厂中一个lot
+会放置40个glass，进入CF工艺后，lot会放置在cassette中。
+2.系统铺垫：系统之前会有一些基础数据，比如生产工艺Flow，
+设备编号，端口编号，cassette编号等等。
+3.根据培训内容了解到：作业员可以通过这个系统，操作：创建lot-->Release（把lot与glass绑定）
+-->track in（该批glass进行哪步工艺）-->track out（此步工艺结束）然后就是一直track in和
+track out，进行在cf分厂对glass的每道工艺，最后就是所有工艺结束进行ship操作，可以进入其
+他分厂进行生产加工。
+4.总结：此次培训CF生产工艺流程内容，能够结合实际的生产加工，比单纯的在资料上搜寻工艺流程实
+在的多，此次培训不仅了解了CF生产工艺流程，而且结合操作员实际操作进行工厂生产，能够在自己
+真正负责此块工作时，为自己更快的找出此块相关的错误提供了很大的帮助。
+
+
+FGMS2018.0116
+
+FGMS WCS PDA
+
+1.FGMS
+FGMS(Finished Goods Management System)成品管理系统主要负责管理成品库。FGMS的功能有：
+1.1库位管理：对库位进行添加、删除、修改功能，并能修改其Resource State；1.2FGCode管理：
+将Mod DB中FGCode信息导入进FGMS DB；1.3客户信息管理：对客户信息进行维护；1.4标准重量管理：
+设定指定FGCode标准重量；1.5.入库Holding管理：设定指定条件，Pallet入库时如果满足条件将弹
+出提示框要求操作人员将Pallet进行Hold操作；1.6.标签打印功能：打印地址标签、Box标签、Pallet
+标签等。FGMS系统主要分为Server与Client两部分：Server端负责对Client端上报数据处理、
+同时上报ERP接口数据；Client端即用户操作界面，主要包括入库、库位移动、拆分合并、拣配、出库等操作；
+2.WCS
+WCS即散屏库（成品库中预留出的一个小仓库，作用：pallet中Box的数量是固定的，是为不足一个palle的单
+位成品的存储）主要功能有：WCS入库，WCS枯萎信息查询，WCS出库，WCS的任务执行列表。
+3.PDA系统
+PDA为手持终端，主要功能有：盘点，移库，倒外库。
+
+
+*************************************************************************************************
+EDC&SPC YMS QMS 2018.01.16下午（20180117上整理）
+
+1.SPC
+SPC(Statistical Process Control)即统计过程控制。SPC应用统计技术对过程中的各个阶段进行监控，从而达
+到改进与保证质量的目的，强调全过程的预防。SPC判异规则：OOC，OOS，OOR，OOT，SPC，SPCZ，MMG，SCR 。
+OOC：超出Control Limit；OOS：超出Spec Limit；OOR：连续九点处在Center Line同一侧；OOT :连续六个点
+上升或下降；SPC：单独判断各点，Spec Out触发 ，处于Screen Limit内；SPCZ：统计“零值点”个数，超过标
+准值触发；MMG：统计“Spec Out点”个数，小于标准值和大于等于标准值分别触发；SCR：单独判断各点，忽略
+Screen Limit，Spec Out触发；判异规则的优先顺序从高到低为：OOS|OOC->OOT->OOR->SPC->SPCZ->MMG->SCR。
+根据这些判异点进行统计过程控制，触发某个判异点会进行不同的处理。
+2.YMS系统简介
+YMS（Yield Management System）即收益管理系统。YMS相关数据类型：SV（state value）：状态值，在整个
+流程都存在，值是可以变化的；DV（data value）：数据值，在流程中的某个工艺环节存在的量，即某个event
+产生的量；EC（equipment constant）：常量，恒量，固定data，不会随着设备的状态变更；EDC：(engineering 
+data collection)工程数据采集：从测量设备上传信息中获取的测量数据信息；PDC（Process data Collection）
+：过程数据采集：从生产设备上传信息中获取的生产数据信息；SPC（statical process control）：统计过程控制
+：应用统计技术对过程中的各个阶段进行监控，从而达到改进与保证产品质量的目的。YMS三大特性：.可以进行迅速，
+多样的统计分析；.展示丰富类型的图表；.通过联动分析达到最高的工作效率。YMS的目标：减少DATA的分析时间，
+用过强化质量分析减少次品率，降低成本；分析各设备间的差值，以及PDC，EDC数据来提高机台的工作效率；
+用SPC的方法进行质量分析；通过次品数量和质量数据进行联动分析可以迅速找出产生次品发的原因，使工艺趋向稳定化。
+3.QMS系统简介
+QMS(quality management system)即质量管理系统。作用：满足QA部门质保相关需求；保存数据3年；管理资材，
+退货和品质等相关信息。功能概述:.SQE(Supplier Quality Engineering供应商管理)：对主要资材进行投入信息，
+不良信息的管理，实现资材信息追溯和统计。.RMA（Return Meterial Authorization）：管理因为发生过不良，
+质量投诉等原因退回公司产品的相关信息。.OQA（Outgoing Quality Assurance）：管控品质相关信息（主要工程
+信息记录，EDC数据及defect的数据）
+
+
+
+
+精益管理2018.01.17下总结
+
+精益管理：用最少的资源，最短的时间，持续性的实现最大的价值。精益生产的基本目标：获取利润。
+精益管理的精髓：1.准时化:在必要的时候只生产、搬运必要数量的必要产品的生产方式和基本思想；
+2.自动化:.保持制造出100%合格的产品；.防止机械设备发生故障；.节省人力（无需监控机械设备）。
+精益报告：热爱岗位，了解岗位，根据对岗位对整个公司的把控以及对本岗位的理解，把公司发展过
+程中的不足或认为需要改善的地方做成报告的形式，公司会有处理相关报告的活动或部门，相关人员
+会根据所提出的改善建议进行评比，通过后即可采用。
+
+
+
+硬件管理 2018.01.22
+对于这次培训内容，主要介绍了机房环境，服务器硬件介绍，服务器架构。1.对于机房环境，需要保持
+恒温恒湿的环境，另外通过图片展示看到机房内的硬件摆设，硬件服务器的底部与地面通过隔板隔开，
+防止地面潮湿。2.服务器硬件介绍中主要有几个名词DAS（Direct Attached Storage）直接附加存储，
+这种方式相对比较传统，当服务器内存不足需要扩容时，直接在原有的基础上附加硬盘；NAS（Network
+Attached Storage）网络附加储存，此种储存方式虽然改善了低效的DAS储存方式，但由于其依赖网络
+较强和其储存方式的结构，所以储存的可靠度不高；SAN(Storage Area Network)储存区域网络，创造了
+存储的网络化，顺应了计算机服务器体系结构网络化的趋势，所以采用这种方式的用户最多。3.对于服务
+器架构方面，数据作为最重要的部分，种类不同的服务器，不同服务器上分配不同的系统，相当于一套系
+统有两台服务器处理，保证当一台服务器出错后，另一台服务器依然可以为其处理相同的事件。
+
+
+MCS相关内容2.18.01.23培训，24总结
+
+MCS（Material Control System）搬送控制系统，负责生产设备之间卡匣的搬送。监控、管理搬送设备，
+根据搬送JOB及设备状态选择搬送路径，自动生成搬送命令并下达给相应搬送设备， 记录搬送历史，
+处理搬送异常。主要功能：1. 选择路径：平衡搬送设备负担，处理异常搬送情况。根据设备实际情况选择，
+最优搬送路径进行物料投送。2. 日志记录：出具统计报表分析搬送趋势以及搬送设备使用情况。3. 实时监控：
+通过MCS客户端对当前设备状态进行实时监控，并能够针对设备建立标准Layout模型。RTS提供WIP balance供DSP参考，
+STK balance中相对于FULL CST有效减少load CST时间，对于empty CST 可以调整其中的保有量，将多余的CST搬出。
+DSP可以根据生产工艺流程和Port的信息，产生搬送命令。相应CST进入STK重定向优选目的地MCS作为搬送命令层系统
+之一，能够与MES,DSP,RTS,搬送设备，以及生产设备的信息，协调完成工厂的搬送控制和制造管理。
+
+
+
+2018.01.24总结
+PDA 
+PDA为手持端设备，自带扫码枪，根据种类的不同，其内置系统也有所区别，一般有Android系统和Windows 测系统。
+PDA拓展：FGMS成品管理系统，FGMS系统架构分为客户端和服务器端，服务器端负责处理客户端上传的数据以及上报
+ERP接口数据，客户端有OIC以及PDA，FGMS的客户端PDA手持端主要功能有盘点，移库倒外库。另外资材管理系统中也
+有PDA手持端和FGMS系统中的比较相似，单功能有所区别，资材管理系统中的PDA的主要功能有盘点，上下架，入库出
+库，质检等。
+FDC相关内容介绍
+FDC（fault detection and classification）错误侦测分析系统，针对生产设备上传的参数进行监控和分析。以分析
+设备实时上传的SV参数为主，加以PDC参数分析为辅。对关键的设备参数在FDC系统建立模型监控，一旦发生参数异常，
+系统实时发送报警。通过FDC监控关键参数的变化趋势，结合工程师分析，有助于解决设备问题，预防问题再发生。从
+而达到缩短生产时间、减少产品报废、提高产品良率等目的。提到SV和PDC，要说到CIM管理数据类型分为两大类即SV和
+DV，DV中又可分为PDC和EDC。FDC管控的数据类型有SV和PDC。SV（Status Variable）在设备整个生产流程中存在的可变
+化量。SV数据总数实时反应设备的生产状态。PDC（Process Data Collection）参数：基于产品生产过程采集，FDC系统
+的辅助参数。FDC数据流向：FDC系统通过EIS系统获取生产设备上传的参数。主要功能：1.通过DCP来集中管理基本信息及
+重要信息（提高系统的可靠性）。2.Easily Modeling和灵活的数据和图标的查询。3.准确的故障检测和 EES Integration
+（提高设备效率和产量，减少分析时间）。
+FMC
+FMC系统（Fab Monitoring Client）是一个实时监控系统，主要用于实时监控产线各设备、Port和Stocker状态，反映产
+线实时生产状况，一旦发生设备异常即会实时在系统上标注以进行警示。主要功能：1.实时监控：实时反应设备，port，stk
+的状态；2.实时报警：以报警图形反应设备及STK报警，以颜色变更反应个STK空满CST报警；3.查询功能：查询设备等实时及
+历史信息，查询设备等实时及历史报警信息，查询STK具体信息。设备类型：搬送设备，生产设备，测量设备和检查设备。
+设备状态：MAINT（维修设备），DOWN（宕机），IDLE（空转状态），RUN（正常运行状态），ETIME（设备维修），其他。
+设备控制状态：OFFLINE（离线状态，设备正常运行，但不向MES上传设备等信息），local（半自动状态，搬送在生产时需要
+人工确认，设备等信息会上传到MES），remote（全自动，设备正常自动运行，设备信息等自动上传）。Port状态分为三类：
+Port Access Mode、Port State和Port Transfer State。Port Access Mode:auto,MANUAL。Port Status：DOWN（Port宕），
+FULL（Port满，已有CST），UP（Port口通信正常），EMPTY(Port为空)。Port Transfer State： Processing：正在处理玻璃，
+ReadyToLoad：准备装载CST，ReadyToProcess：准备开始处理玻璃，ReadyToUnload：准备释放CST，ReservedToLoad：预约port
+口进行装载CST，ReservedToUnload： 预约port口进行释放CST。STK状态：DOWN：STK宕，NOTFULL：STK未满（依照从MCS获取的数据）
+，UP：STK通信正常，FULL：STK已满（依照从MCS获取的数据）， OVERBYOP：状态为满的STK超出标准限值，OVERBYEMP：
+状态为满的STK超出标准限值， OVERBOTH：以上两种状态的STK均超出标准限值。
+ROS
+ROS全称Remote Operation System(远程操作系统)。为了集中管控，减少particle ，提高生产质量，降低设备等待
+时间，提高稼动率，营造良好的工作环境而安装，主要应用于B4 Array、CF、Cell三大工厂。ROS结构：KVM，CCTV，EMS。
+KVM：将信号通过光纤远程传输到ROS ROOM内，Operator便可以在ROS Room内远程操控设备。CCTV：监控系统，通过IP Camera
+实时监控设备运行时的画面，以便及时发现问题。EMS：可以监控设备运行状态，发生报警时可以及时停止设备运行。
+
+2018.01.25总结未完，26继续整理
+DSP相关信息
+DSP（Real Time Dispatcher）实时派工系统。功能介绍：1. 响应设备CST搬送请求（包括Empty/Full 
+CST搬上与搬下设备)，根据设定逻辑寻找目标CST或目的地，并返回结果2. 响应CST进入Stocker时重定
+向搬送请求，根据设定逻辑寻找更好目的地，并返回执行结果3. 设备首次CST搬送请求未响应后的定时
+重发等功能。DSP五大结构：.1What Group：处理load Request CST的自动命令派发Bpel文件组。.2Where
+Group：处理unload request CST的自动命令派发Bpel文件组。.3E2E Group:处理E2E执行超时后unload 
+Request CST的自动命令派发Bpel文件组。.4Special Group:处理Reroute Request CST的自动派发Bpel文件组。
+.5Timer Group：处理命令派发失败的，重新进行CST自动命令派发的计时器Bpel文件组。DSP数据流（以load为
+例描述）：当设备port口空任务时，会发出load request请求，请求经过EIS传到MES,DSP通过MES获取请求信息，
+以及生产工艺等信息，通过MES向MCS发送派发命令，搬送设备接到命令开始执行，若没有执行成功，DSP通过判断
+port状态，通过TIMER再次派发命令。
+RTS
+RTS（Real Time Schedule）实时计划系统。功能介绍：1. WIP Balance - 根据每天的产出计划，自动计算和
+调整各工艺每天每班的计划生产数量，生成参考生产计划；根据设备状态，将调整好的生产计划分配到正常生
+产的设备上供DSP搬送参考，并预估Lot生产时间2. STK Balance - Full CST Balance：平衡STK间Full CST，
+预先将CST搬到目的地STK，减少Load CST时所需时间；Empty CST Balance：按需调整STK内Empty CST保有量，
+将多余的CST从STK内搬出。数据流向：RTS通过MCS上传到MES的STK信息，进行STK balance和WIP balance。
+
+
+************************************************************************************************************
+2018.01.26总结
+Report系统介绍
+
+MES Report系统是MES系统的一部分，是一个提供用户进行实时查询MES DB中数据并可以导
+出数据报表的系统，它通过查询MES DB中数据提供用户（各位领导，生产管理人员，生技工
+程机，产线操作员等）对生产情况（WIP量，Movement量，设备稼动率等产线生产数据）进
+行监视需要并可以导出已查询出数据的Excel表格方便用户存储备用。此次培训虽然看着比较
+简单，但是后台实现较为复杂，使用相关的储存过程每天实时更新Report内的数据，大致对
+Report系统的功能、作用、以及数据来源进行了了解。
+*************************************************************************************************************
+2018.01.29
+DFS
+
+DFS(Defect File Server)文件服务器。系统作用：收集Test、Repair设备上报文件或图片数据。
+供技术部门进行分析。
+系统功能：
+1. 上报文件的类型：
+ 1.1Defect数据文件：记录Glass与Panel上的不良信息；
+ 1.2Defect图片文件：记录Glass与Panel上不良信息的图片文件。
+2. 检查设备上传的Defect数据文件格式是否正确。
+3. 存储设备上传的Defect数据文件和Defect图片文件，并定期进行备份与删除。
+4. 提供Web网站供需求部门进行查询不良文件与图片操作，并同时提供下载功能。
+DFS程序中四大核心部分：
+.1Exp_del项目下是DFS删除exp文件夹下文件源代码。
+.2illegalfile项目下是DFS删除存储上非法文件的源代码。
+.3dfs_backup项目下是将defect文件backup到data2目录下的程序。
+.4DFSGen项目下是DFS代码的主体部分generator，主要是包括“按照DMV找到RAW然后判断文件格
+式是否正确”的代码和定位删除过期RAW的代码。
+
+2018.01.30 array工厂信息流实操，CF信息流上机实操类比
+
+array工厂信息流实操作为培训以来第一次应用实践的方式进行培训。因为我们不管是开发还是维护，首先要知道的
+就是要开发或要维护的产品，OIC（operator interface client）就是我们以后要开发和维护的产品，此次培训是完
+全在OIC客户端上进行的操作，以设备操作员的日常生产操作为基础，包括一些连续的操作，根据产品型号创建LOT ID
+->release LOT(Array中LOT默认数量20，此过程中可以把glass与lot ID进行绑定)->track in（把这个lot放入到相应
+的生产设备上的对应port口上进行生产加工）->track out（与上一个track in想=相对应，track in与track out成对
+使用，表示进行某道工艺的生产加工，track in和track out循环使用进行该种型号产品的每一道工艺）->（根据型号
+生产完各道工艺，等级上没有问题）进行shipping操作（表示此种型号的产品在这个分厂中加工完毕，后面分厂进行
+Receive lot接收该种lot，进行下一个分厂的生产加工），
+
+
+
+2018.02.01 sort/cell Module
+
+sort/cell在OIC中接收顺序是Array->sort，CF->sort。sort分别接收来至Array，CF分厂中的LOT ID(注意：由于CF分厂和
+Array分厂中盛放Lot内的数量不一样，所以可以在sort中进行LOT的拆分合并，但是也可以到下个分厂需要时再进行拆分合
+并，最好以40为单位，合并Array分厂中的Lot，二合一)，此时要注意Lot ID的变化。product ID在Sort不会发生变化，Lot 
+ID从Array分厂到Sort变化分厂的代号A->S其他部分不作大的变化，Lot ID从CF分厂到Sort变化分厂的代号Lot ID号根据产
+品的良率，如果全为GOOD则加字母T，若有NG则加A。然后根据产品的型号分别进行相应的工艺加工，分别进行ship操作。然
+后就是到了Cell接收（接收时在Dev环境中遇到一种问题，有时存在单个接收不成功的问题，可以采用多种lot接收，有这两
+种办法解决cell接收Lot的问题，）因为在Cell分厂中有Assy工艺，需要前面两个分厂接收的lot，进行拆分合并配对，如果
+之前（在sort部分）进行过拆分合并此时可以忽略，然后就是分别进行两个分厂接收到lot分别进行（处理每一道工艺时在
+cell部分最好每一步都要进行操作一遍）track in，track out，最后ship操作，等待后续处理。经过cell分厂处理过的lot
+会到Module分厂或者到库房（此时把Cell生产出来的产品作为成品），到Module分厂中可以继续加工Cell分厂接收的产品，
+module OIC和FAB OIC从操作上差别比较大，区别在于首次根据接收的标志位判断后续是S2或者Module，接收后需要绑定WO
+（WorkOrder），然后要注意的是POL和aging工艺有track in和track out操作，其他工艺都是track out操作。
+
+
+巧飞师傅
+
+8CKM820001T 后来添加合并数量8AKD810076 8SKD820002
+
+8FKM820001T 8AKD810075 
+
+
+
+
+20180205创建lot                   40
+B4A320WX5V401 production 8AKA820001/8AKA820002 
+B4F320WX5V101 production 8FKA820001
+失败sort无法接受，没有相应的型号
+
+20180205创建lot   
+B4A320WX7V401 production 8AWX820011/8AWX820012
+B4F320WX7V104 production 8FWE820001
+失败sort无法接收
+
+B4A320FH5V403 8AKD810077/8AKD810078 
+B4F320FH5V103 8FKC810001
+
+
+
+20180206上午
+																														
+                                                         B4P320WX7VP01									B4C320WX7VP01
+B4A320WX7V401   8AWX820013      8SWX820002  8SWX820001T                   8CWX820001T      8PWX8200003     			8TWX8200001VGP
+                                                         B4H320WX7VP01
+B4F320WX7V101   8FWX820001      8FWX820001T                               8FWX820001T/8FWX820001T-1 
+  
+
+  
+WO ID  	10106080 FG Code HV320FHB-N00-EDP2                             panel ID MMT（物料规则不匹配）    Module ID  		Box ID
+WO Type B401     check in M01			cell Lot 8TWX8200001VGP		8AWX820013A1A1                    C7P8182EDP2000001  C7P8182000001
+																					
+  
+
+ 2018.02.08 Module信息流实操 注意点
+ 
+首先接收（Schedule-》Receive）cell lot，创建工单，绑定工单(Schedule-》Assign WorkOrder)，然后开始生产加工，加工之前需要
+Schedule—》Manual Start-》Module Bank，后面	Schedule—》Manual Start-》Manual-> Start(选择要进的产线及站点)，进行真正的Module
+分厂的生产加工，一步步操作根据提示（中间会有很多问题，因为这个不像Fab OIC track out后下一步站点那么明确，不过这套系统提示功能
+也很强，中间碰到一个奇怪的问题（在MMT工艺中），就是因为没有选择物料，会出现物料规则不匹配的问题），最后LINE OUT后，查看一下当
+前所处的站点，根据站点能够判断出下一步所在的Boxing站点（Boxing分Module和S2的BOX）,打包后进行Pallet之前需要称重，称重之后进行
+Pallet操作，Pallet操作时会让填写一个数量，如果数量填写有问题会出现，计划数量与生产数量不一致的问题（这个问题可以在负责这一块时
+通过查看后台代码理解，暂时感觉这个数量问题不是个问题），这一过程中lot的变化是：Cell lot->panel ID->Module ID->Box ID->Pallet ID.																												
+	
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------	
+2018.02.22 开发账号
+	vs2008的账号密码：shanpenghui/123456																												
+	            cvs   shanpenghui/1	
+	
+
+2018.02.23  eclipse&visual studio2008				
+
+PLSQL
+	SELECT * FROM lot ;
+
+	SELECT * FROM ct_nlsdata n WHERE n.english='View Lot History';
+	SELECT * FROM ct_nlsdata n WHERE N.NLSNAME='FactoryName'
+
+	SELECT * FROM menu m WHERE m.menuname='ViewLotHistory';
+	SELECT * FROM CT_CUSTOMQUERY Q WHERE Q.QUERYID='GetProductSpecInfo';
+	SELECT  * FROM CT_CUSTOMFLAG
+--以上补充（20180713）
+SELECT * FROM ct_nlsdata c WHERE c.english='OIC Main';
+SELECT * FROM menu m WHERE m.menuname='OICMain';
+--补充结束
+	
+	
+-Declipse.ignoreApp=true
+-Dosgi.noShutdown=true
+-DLogDir=${workspace_loc}\logs
+-Dlocation=BOEDT
+-Dfactory=B4
+-Dcim=MES
+-DworkerWeight=2
+-DworkerTasks=1
+-DschedulerWeight=10
+-Dmode=DEVSPH
+-Dnanoframe.service.lookup.timeout=5000
+-Dshop=FAB
+-Dsvr=QRYsvr
+-DSeq=QRYsvr1
+-Dbpel_home=${workspace_loc}\nanoFrame.workflow\META-INF\bpels\
+-Dnanoframe.server.name=QRYsvr
+-Ddq=${system_property:user.name}
+	
+BOEDT B4 MES DEVSPH FAB servername
+***************************************************************************************************************
+2018.02.24pm
+**Hello World！编写第一个 OSGi 应用程序
+							
+package osgi.test.helloworld; 
+import org.osgi.framework.BundleActivator; 
+import org.osgi.framework.BundleContext; 
+
+public class Activator implements BundleActivator { 
+
+	 /* 
+	 * (non-Javadoc) 
+	 * @see org.osgi.framework.BundleActivator 
+	 *     #start(org.osgi.framework.BundleContext) 
+	 */ 
+	 public void start(BundleContext context) throws Exception { 
+	    System.out.println("hello world"); 
+	 } 
+
+	 /* 
+	 * (non-Javadoc) 
+	 * @see org.osgi.framework.BundleActivator 
+	 *     #stop(org.osgi.framework.BundleContext) 
+	 */ 
+	 public void stop(BundleContext context) throws Exception { 
+	 } 
+ }
+
+
+ 
+-------------------------------------------------------------------------------------------------------------
+ 
+
+2018.02.28 上午
+1#tpfopolicy			
+																		
+		conditionid: CF_B4F320WX7V101_FFSMP01_F11P-00
+					 factoryname productspecname processflowname processoperationname
+create table D1FABADM.TPFOPOLICY
+(
+  factoryname             varchar2(40) not null,
+  productspecname         varchar2(40) not null,
+  productspecversion      varchar2(40) not null,
+  processflowname         varchar2(40) not null,
+  processflowversion      varchar2(40) not null,
+  processoperationname    varchar2(40) not null,
+  processoperationversion varchar2(40) not null,
+  conditionid             varchar2(4000),
+  dcspecversion           varchar2(40),
+  dcspecname              varchar2(40)
+)
+																						
+2#tpompolicy
+					conditionid:CF_B4F320WX7V101_FFSMP01_F11P-00_8FITO01
+								CF_B4F320WX7V101_FFSMP01_F11P-00_8FITO02
+								CF_B4F320WX7V101_FFSMP01_F11P-00_8FUNP01
+								CF_B4F320WX7V101_FFSMP01_F11P-00_8FUNP02
+																 machinename
+																	
+create table D1FABADM.TPFOMPOLICY
+(
+  factoryname             varchar2(40) not null,
+  productspecname         varchar2(40) not null,
+  productspecversion      varchar2(40) not null,
+  processflowname         varchar2(40) not null,
+  processflowversion      varchar2(40) not null,
+  processoperationname    varchar2(40) not null,
+  processoperationversion varchar2(40) not null,
+  machinename             varchar2(40) not null,
+  conditionid             varchar2(4000)
+)												
+																			
+3#posmachine													 machinename		
+					conditionid:CF_B4F320WX7V101_FFSMP01_F11P-00 8FUNP01
+																 8FUNP02		
+create table D1FABADM.POSMACHINE
+(
+  conditionid varchar2(4000) not null,
+  machinename varchar2(40) not null,
+  priority    number,
+  test        varchar2(40)
+)											
+																				
+4#posmachinerecipe												 machinename	machinenamerecipename					
+					conditionid:CF_B4F320WX7V101_FFSMP01_F11P-00 8FUNP01		32FFSUN01
+																 8FUNP02		32FFSUN01
+create table D1FABADM.POSMACHINERECIPE
+(
+  CONDITIONID       VARCHAR2(4000) not null,
+  MACHINERECIPENAME VARCHAR2(40) not null
+)
+
+5#ct_lotsampling												  machinename
+		t.productspecname='B4F320WX7V101' AND t.processflowname='FFSMP01' 8FPHT13
+																		  8FPHT01		
+																				
+					
+create table D1FABADM.CT_LOTSAMPLING
+(
+  factoryname             varchar2(40) not null,
+  productspecname         varchar2(40) not null,
+  processflowname         varchar2(40) not null,
+  processoperationname    varchar2(40) not null,
+  machinename             varchar2(40) not null,
+  toprocessoperationname  varchar2(40) not null,
+  samplingbase            varchar2(40) not null,
+  lotsamplingcount        varchar2(40) not null,
+  productsamplingcount    varchar2(40),
+  productsamplingposition varchar2(120),
+  calculatelotcount       varchar2(40),
+  necessarysampling       varchar2(40),
+  timekey                 varchar2(40),
+  eventcomment            varchar2(4000),
+  priority                varchar2(40)
+)														
+
+6#poslotsampling										
+														低配的ct_lotsampling				
+						conditionid:ARRAY_B4A460WU7V402_AFSMP01_5500-00_8APPH11									
+create table d1fabadm.poslotsampling
+(
+  conditionid             varchar2(4000),
+  toprocessoperationname  varchar2(40),
+  samplingbase            varchar2(40),
+  lotsamplingcount        varchar2(40),
+  productsamplingcount    varchar2(40),
+  productsamplingposition varchar2(120),
+  priority                varchar2(40)
+)
+
+7#posproductsampling
+														暂无备注
+						conditionid:CF_B4F320WX7V101_FFSMP01_F41P-00%																				
+create table D1FABADM.POSPRODUCTSAMPLING
+(
+  conditionid             varchar2(400) not null,
+  toprocessoperationname  varchar2(40),
+  lotsamplingcount        varchar2(40) not null,
+  productsamplingcount    varchar2(40),
+  productsamplingposition varchar2(40),
+  priority                varchar2(40)
+)
+
+8#posproductsamplingeqpbyslot							无理解													
+																											
+						conditionid:CF_B4F070WV5T101_070TR01_F41P-00_8FPHT13																				
+create table D1FABADM.POSPRODUCTSAMPLINGEQPBYSLOT
+(
+  conditionid         varchar2(400) not null,
+  position            varchar2(40) not null,
+  samplingmachinename varchar2(40),
+  inputflag           varchar2(40)
+)																										
+
+***-------------------------------------------------------------------------------------------------------
+
+2018.03.01 上午
+
+eclipse调试
+F5-Step Into：移动到下一步，如果当前的行是一个方法调用，将进入这个方法的第一行。（可以通过第九条来排除）
+F6-Step Over：移动到下一行。如果当前行有方法调用，这个方法将被执行完毕返回，然后到下一行。
+F7-Step Return：继续执行当前方法，当当前方法执行完毕的时候，控制将转到当前方法被调用的行。
+F8-移动到下一个断点处。
+
+2018.03.2 下午 晴
+
+EIS_FAB 系统变量
+-DEIS=B4EISFABDEV 
+-Dconfig=old/EC.xml  
+-Xms512M -Xmx512M 
+-Dcom.sun.management.jmxremote 
+-Dcom.sun.management.jmxremote.port=8000 
+-Dcom.sun.management.jmxremote.authenticate=false
+-Dcom.sun.management.jmxremote.ssl=false
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+2018.03.05 上午 多云
+
+mes录数据借鉴
+
+1、 向dev数据库录入spec
+
+                  B4AA10QU7V401
+                  B4AA10QU7V402
+
+*表TPFOPOLICY、
+   POSMACHINE、
+   TPFOMPOLICY、     
+   POSMACHINERECIPE、
+  
+   POSLOTSAMPLING、  
+   CT_RESERVEINSPECTIONOPERATION、
+   PRODUCTSPEC
+  
+*MES数据录入准备
+ B4F460FH5V101
+ B4F236FH5T102
+ B4F070WS5V101
+ 
+2018.03.07 上午 多云（EIS问题）
+Now when I restart a machine(8CXCT21) in the EIS process(EISFAB52),it has an error
+"[support.FileSystemBpelRepository.getDocumentsFromFolders] org.xml.sax.SAXParseException: The value of attribute
+"variable" associated with an element type "null" must not contain the '<' character."Then the machine can't load bpels.
+解决方案：
+
+**----------------------------------------------------------------------------------------------------------------------------------
+2018.03.13 下午 多云
+MES 
+   visual studio 2008OIC客户端中加强C#掌握，C# ASP.net.
+   tibco的使用
+
+
+2018.07.27 多云
+部品项目
+功能（总体）
+ 1属性管理 ；
+		部品状态管理
+    -   	上机使用、未使用的区分
+    -   	待清洗、待退库的区分 
+		部品寿命管理（时长、次数等）
+		优先级管控
+		
+2数量库位管理：
+		快速查找部品位置
+		快速查找空闲库位，存放物品
+		实时查看产线内各种部品的数量
+		快速汇总产线内资产信息
+		线边仓安全库存管理
+
+3报表分析：
+		出入库位、线边仓，上下机历史追溯
+		利用BO、Report实现分析功能
+		与良率等数据联动分析
+		
+4上机管控：
+		上机防呆校验
+			 - 清洗/烘干/回温时长
+			 - 部品的状态校验（寿命、质量）
+			 - 型号的校验，根据BOM进行校验
+			 
+5机下管控:
+		Pr胶回温管控
+		Rub布烘干管控等
+
+6智能报警：
+		线边仓安全库存报警
+		部品寿命报警
+			- 设备物料耗尽报警
+			- 治具达到使用次数报警
+
+
+2018.07.30 多云（部品整理）+ 2018.07.31晴
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+		物料    特性							功能    									
+Array	PR		photo工艺，外观，生产日期		StockIn，StockOut，Kitting，UnKitting，Stockouttowarehouse，PRScrapView
+操作手册：
+扫描PR条形码->信息上传系统->录入操作结束进线边仓->PR WIP 在OIC系统显示。（静置24h，出线边仓）
+上机时：系统根据物料基准信息匹配Product Spec、 EQP ID以及物料ID信息等，防止投错料(NG Stockouttowarehouse)；
+
+
+Array	靶材	Sputter工艺						TargetUnpacking，MultiStockIn,StockOut，KItting，TargetUnKitting，StockOutToWarehouse，TargetScrap
+介绍：每个Box内存储6个Target的，而Target是吸附在金属背板上，下机时Target消耗完，金属背板返回厂商，继续安装Target
+操作手册：
+从仓库领出录入boxid->Target(Box) Unpacking（Target box进行unpacking，录入金属背板的信息）->Stock in线边仓（Target进入线边仓时只扫录Box ID，但是系统连带出金属背板信息
+）->Target Stock out(Target（Box）出线边仓，连带6个金属背板一起出仓。)->Target Kitting （每个金属背板上机）->Target UnKitting->Target packing （下机的金属背板进
+入另外的Box内，进行装箱，并记录packing动作。）->Target（Box） Fab Out 
+
+
+******
+CF		PR		photo工艺 解冻					StockIn，PRInfridge，PROutfridge，StockOut，Kitting，UnKitting，PRScrap	
+操作手册：
+扫码录入线边仓->继续解冻->解冻完成->Y上机-——---——————————————->Y上机验证->上机使用->空桶下机->Y空桶下机
+									N多余->冰箱线边仓		   N需解冻，错料录入线边		  N半桶->线边仓
+CF		靶材	外观，生产日期					CFTargetMultiStockIn，CFTargetStockOut，CFTargetUnPacking，CFTargetKitting，CFTargetUnKitting,CFTargetStockingOutToWarehouse,CFTargetScrap
+
+******
+Cell	PI		PI工艺 外包装，冷冻				PIStockIn，PIStockIn，PIInfridge，PIStockOut，PIKittingView，PIUnKittingView，PIScrapView，PIAvailableKitList
+操作手册：
+进入产线->外观检查->进入产线PI液冰箱->Y取出解冻->解冻完成区移出->出线边仓->Y验证时长->出仓完成->上机验证->下机->Y是否空余->回线边仓
+		  N返回仓库					  N继续解冻							   N继续解冻							N空桶报废
+
+Cell	LC		Assy工艺					LCStockIn,LCStockOut,LCDegasView,LCTestView,LCKittingView,LCUnKittingView,LCMerge2View
+操作手册：
+录入系统 产线保存柜保存->扫码出保存柜->LC脱泡保存->mes上机验证->Y上机成功----->残量大于30g->Y扫码录入系统
+										NG退库					N扫码录入系统   			N回收
+										
+										
+										
+Cell	Cloth		Rubbing工艺				RubbingClothStockIn，RubbingClothStockOut,RubbingClothAssignAging,RubbingClothScrap					
+		Roller								RubbingRollerStockIn,RubbingRollerStockOut,ClothBinding,Kitting,UnKitting,RubbingRollerScrap
+		Tape								RubbingTapeStockIn，RubbingTapeStockOut，RubbingTapeScrap
+操作手册：
+领料->cloth StockIn->Cloth StockOut->单张绑定Aging架 层->Y验证Aging时长8h->Roller绑定Cloth--------------->验证Roller type->TN->绑定时长12h->Kitting->UnKitting->是否寿命到期->Y解绑报废Cloth
+														 N返回上一步	   Tape粘贴（空Roller StockOut）				   ADS->Kitting										  N不解绑，操作员填写剩余寿命
+介绍：
+Roller ：Rubbing工艺一种治具，分ADS和TN Type。位置上只需管理Roller Stocker、设备上、ETC（非Roller Stocker和设备上状态）。
+Cloth：粘贴在Roller上的布，耗材，有使用寿命。两种Cloth包装类型：Box和桶装。每个Box一个批次ID，每个批次ID包含10张Cloth，MMS系统不需要单独编码十张Cloth，只记录数量即可。
+每个桶一张Cloth，存在多个桶同一批次ID情况，MMS还是记录这个批次数量即可。总的来说就是Cloth只管到批次张数。
+Tape：Roller与Cloth粘贴物，三种类型，需记录这三种类型在线边仓数量。一次Cloth与Roller粘贴用一个Tape
+线边仓介绍：Aging架：类似停车场，库位固定。细分管理到Aging架的层位。共两个Aging架，一个12层一个16层
+
+
+Cell	sealant		Assy工艺				SealantStockIn，SealantStockOut，SealantOutFridge
+操作手册：
+扫描Sealant条形码及Additive二维码->Material Storage OUT->Sealant解冻->Material  Mixing->Material Defoaming and Filling->Syringe Seal上机前Control
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+		治具	特性							功能	
+Array	PA		Test工艺						PAStockIn，PAStockOut，PAKitting，PAUnKitting，PAScrap
+操作手册：
+PA进出线边仓-->上机（PA直接上机存储待用，无需校验，会出现从某台设备上下机后直接在另外一台设备上机）
+
+
+Array	Mask	photo工艺，外包装				StockIn，StockOut，MaskKitting	
+操作手册：
+Barcode Reader扫描Mask码-> 信息上传系统->录入操作结束->Mask WIP在OIC系统显示-上机前确认（Mask型号，生产日期，设备layer）->MES上机验证
+
+******
+CF		Mask	Photo工艺，clean				StockIn，StockOut，MaskKitting，MaskCleanStart，MaskCleanEnd	
+
+******
+
+Cell	PU&		Test工艺						PUBOXStockIn，PUBOXStockOut，ProbeUnitStockIn，ProbeUnitStockOut，ProbeUnitKitting，ProbeUnitUnKitting，ProbeUnitScrap
+		WT										WTStockIn，WTStockOut
+操作手册：
+					WT从仓库领出->stock in线边仓->stock out线边仓-> WT kitting
+PU（with BOX）领出->PU（with Box）Stock in->PU（with Box）Stock out->PU Kitting->验证PU&WT匹配关系->Kitting成功
+																				 NG可以人工选择上机或者各自回到stock in
+
+																				 
+
+																				 
+部品整理总结
+部品：物料和治具
+Array CF Cell三大分厂
+
+部品整理采用纵向和横向分类进行梳理
+横向 物料（治具） 特性 功能 操作手册；
+纵向Array CF Cell以操作手册内容紧密联
+系各部分功能， 
+																				 
+2018.08.06
+
+MMS界面数据调整涉及的关键表
+ct_customquery
+menu ct_nlsdata
+
+Dear all，有三个事~ 
+1. 京东方大学有个在线课程，要求最好工程师都能去学习一下，大家有时间看看BOEU那个平台，
+课程是：精益入门与设备技术基础，具体是分为两个课程，还是合并在一个课程里我还没看，大家可以有时间去在线学一下~
+2. 8月咱们CIM两个科室要开一次月会，会上一个主题是需要18年入职新员工做培训和工作总结分享，算是一个阶段性总结，
+出了学习内容的总结外，也可以写写自己的在工作和培训中的收获、特训营的收获，以及对部门科室的建议想法等等~ 具体
+时间没确定，可能会在下周。@刘思赢 @单朋辉 准备一下PPT 你们的师傅去年也发表过，也可以和他们取取经。
+3. 团建日期和最终项目还没定，这段时间如果大家都什么推荐建议去游玩的地方，也可以反馈给我或者直接给晨梦参考~
+
+2018.08.16 多云
+C#在线API
+http://msdn.microsoft.com/library/default.aspx
+
+使用Visual Studio 和 vb.net/c#的帮助
+http://msdn.microsoft.com/zh-cn/library/dd642420(v=vs.100).aspx
+
+
+NullPointKeySignal : 
+NullPointKeySignal: 
+Key can't be null 
+[DataKey=FactoryName:CF,ProcessFlowName:550JC7V-M,ProcessFlowVersion:]
+[Sql=select]
+
+
+
+ // lineList.Insert(0, new BSMATERIAL() { LINEBINNO = string.Empty, DESCRIPTION = string.Empty});
+
+
+2018.08.21 晴
+			SetWindowPos(uLabelContainer2.Handle, HWND_NOTOPMOST,0,0,455,435);
+            SetWindowPos(uLabelContainer1.Handle, HWND_NOTOPMOST, 457, 3, 322, 438);
+
+
+2018.08.22 多云 
+
+未将对象引用设置到对象的实例。
+
+2018 08 24 
+NullPointKeySignal : 
+NullPointKeySignal: 
+Key can't be null [DataKey=FactoryName:CF,ProcessFlowName:550JC7V-M,ProcessFlowVersion:] 
+[Sql=select]
+
+
+2018.08.27 多云 摘录自CSDN博客
+1、Maven是什么及其优点
+2017年04月24日 10:38:45
+阅读数：10852
+（1）平时我们开发项目时，一般都是一个项目就是一个工程。我们划分模块时，都是使用package来进行划分。但是，当项目很大时，有很多子模块时，即使是package来进行划分，也是让人眼花缭乱。
+
+?0?2 ?0?2 ?0?2 ?0?2 ?0?2 ?0?2 优点一：项目非常大时，可借助Maven将一个项目拆分成多个工程，最好是一个模块对应一个工程，利于分工协作。而且模块之间还是可以发送消息的。
+
+
+（2）同一项目的jar包 ?0?2复制 和 粘贴到WEB/INF/lib下
+?0?2 ?0?2 ?0?2 ?0?2 ?0?2 ?0?2 ?0?2 ?0?2 问题：同样的jar包重复出现在不同的工程中，一方面浪费空间，同时也让工程臃肿
+
+优点二：借助Maven，可将jar包仅仅保存在“仓库”中，有需要该文件时，就引用该文件接口，不需要复制文件过来占用空间。
+
+
+（3）如果jar包都到各个官网网站下载，会浪费很多时间，而且可能不全。
+
+优点三：借助Maven可以以规范的方式下载jar包，因为所有的知名框架或第三方工具的jar包已经按照统一的规范存放到了Maven的中央仓库中。
+
+
+（4）一个jar包依赖的其他jar包可能没导入到项目而导致项目跑不起来。
+
+优点四：Maven会自动将你要加入到项目中的jar包导入，不仅导入，而且还会将该jar包所依赖的jar包都自动导入进来。
+
+
+
+2018.08.28 多云
+MES 日常维护问题汇总
+	1.Main flow:180S-00和980S-00的抽检频率去掉
+	2.Rework Flow：9200-00的PPID变更为ITO700_DECAP
+
+B4A340VW5V402
+ProcessFlow变更为：
+1.Main flow：180S-00和980S-00的抽检频率去掉
+2.Rework Flow：9200-00的PPID变更为ITO700_DECAP
+
+B4A340VW5V402	980L-00 从1/1000改为1/15
+
+
+2018.08.30 阵雨
+visual studio调试程序不能进入断点解决方法：
+方法一：菜单tools->Options->Debugging->General,有个Require source files to exactly match the original version的选项取消；
+方法二：在breakpoints窗口中选定无法设定的断点点右键选择location...然后在弹出对话框的最下面有个Allow.....的按钮，将该选项勾选上；
+方法三：菜单tools->Options->Debugging->Symbols，然后在Symbol file(.pdb)locations中添加你要调试dll或者程序的pdb文件；
+方法四：这个可能是由于你使用dll(lib)的版本和和当前代码不一致，解决办法就是重新生成dll(lib),然后覆盖掉之前的dll(lib)；
+
+2018.08.31
+
+DaemonList>
+    <Daemon>tcp:10.90.247.1:7500</Daemon>
+</DaemonList>
+量产环境	
+----------------------------------------------------
+有氧运动：这主要取决于运动的强度。在运动强度相对较小时，氧的供给充分，机体以能源物质的有氧氧化获得能量，即有氧运动；
+无氧运动：当运动强度较大时，氧的供给相对不足，机体则可利用糖原的酵解，生成乳酸获得能量，即无氧运动。
+由此可见，在一般情况下，划分有氧运动和无氧运动，主要是根据运动过程中有无乳酸产生来判定的。
+常见的有氧运动有：快走、慢跑、爬楼梯、爬山、游泳、跳舞、跳绳、健身操、骑自行车等。也就是人们比较熟悉的耐久性运动。
+常见的无氧运动有：举重、短跑、中长跑、投掷、跳高、跳远、摔跤、拔河、肌力训练等。也就是人们熟知的力量性运动。
+
+2018.09.03 PA数据表相关
+
+
+
+select * from ct_customquery q where q.queryid ='MMS_GetBSMachineList' and q.version='00006'; 
+
+SELECT DISTINCT p.*,m.*,ms.*
+  FROM CT_MATERIALPOLICY P, POSMATERIALPAIRMACHINE M, MACHINESPEC MS
+ WHERE P.CONDITIONID = M.CONDITIONID
+   AND P.MACHINENAME = MS.MACHINENAME
+   AND P.FACTORYNAME = 'ARRAY'
+   AND M.MATERIALSPECNAME = '0001'
+ORDER BY p.MACHINENAME;
+
+
+select * from POSMATERIALPAIRMACHINE p where p.conditionid='Array_*_*_*_8AXFT01';
+
+select * from CT_MATERIALPOLICY m where m.conditionid = 'Array_*_*_*_8AXFT01';
+
+
+2018.08.17 多云
+
+创建DBlink
+CREATE DATABASE LINK LINKTOEDBYMS_SRV55
+CONNECT TO pdcusr
+IDENTIFIED BY usr1233
+USING '10.90.248.61/EDBYMS_SRV';
+
+select * from cell_product_value@linktoedbyms_srv55 c where C.TIMEKEY = (
+select max(c.timekey) from cell_product_data@linktoedbyms_srv55 c 
+where c.machinename = '8CIRB02' and c.unitname = '8CIRB02-RB01'
+) 
+where c.
+;
+
+select * from cell_product_value@linktoedbyms_srv55;
+
+drop  database link linktoedbyms_srv55;
+
+
+select * from cell_product_value c where C.TIMEKEY = (
+select max(c.timekey) from cell_product_data c 
+where c.machinename = '8CIRB02' and c.unitname = '8CIRB02-RB01'
+) 
+;
+
+2018.10.11
+C# 判断Caps Lock的状态
+1、命名空间：
+using System.Runtime.InteropServices;
+2、导入方法
+[DllImport("user32.dll", EntryPoint = "GetKeyboardState")]
+public static extern int GetKeyboardState(byte[] pbKeyState);
+3、大小写状态
+public static bool CapsLockStatus
+{
+get
+{
+byte[] bs = new byte[256];
+GetKeyboardState(bs);
+return (bs[0x14] == 1);
+}
+}
+4、引用，此部分根据你的需要来修改
+private void button2_Click(object sender, EventArgs e)
+{
+if (CapsLockStatus == true)
+MessageBox.Show("键盘处于大写锁定状态！");
+else
+MessageBox.Show("键盘处于小写状态！");
+}
+ 
+ 
+2018.10.15(本周计划)
+部品
+1.PI液和PA现在不催他们也在自己用了，rubbing科那边我看他们最近没再用，催他们一下
+2.PUWT下周需要调整线边仓，别的没什么，下周先把Mask和PR胶的OIC检查一下包括array和cf
+
+
+PI stockIn
+material name :AL26002
+
+问题集锦：
+p:Resource is out of sync with the file system......
+解决方法：
+手动刷新。
+1.即在eclipse的工程目录中，右键refresh（或者按下F5）。
+2.配置eclipse的选项：
+ eclipse启动时，刷新workspace，即勾选：window—>preferences—>general—>startup and shutdown—>refresh workspace on startup；
+ window—>preferences—>general—>workspace中：勾选选项：refresh using native hooks or polling和refresh on access；
+
+
+
+<Message>
+    <Header>
+        <MESSAGENAME>MachineRecipeParamter1</MESSAGENAME>
+        <SHOPNAME>ARRAY</SHOPNAME>
+        <MACHINENAME />
+        <TRANSACTIONID>20181015170735351497</TRANSACTIONID>
+        <ORIGINALSOURCESUBJECTNAME>_INBOX.0A51025D.5BC4576E032A.2</ORIGINALSOURCESUBJECTNAME>
+        <SOURCESUBJECTNAME />
+        <TARGETSUBJECTNAME />
+        <EVENTUSER>10106080</EVENTUSER>
+        <EVENTCOMMENT>MachineRecipeParamter1</EVENTCOMMENT>
+        <INPUTSET />
+        <LANGUAGE>English</LANGUAGE>
+        <listener>LOCALListener</listener>
+    </Header>
+    <Body>
+        <ENUMNAME>checkMachineRecipeParameter</ENUMNAME>
+        <ENUMVALUE>8ATPC01</ENUMVALUE>
+    </Body>
+    <Return>
+        <RETURNCODE>UndefinedCode</RETURNCODE>
+        <RETURNMESSAGE>Undefined error message. kr.co.aim.messolution.lot.service.LotServiceUtil.deleteEnumDefValue(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, kr.co.aim.nanotrack.generic.info.EventInfo)</RETURNMESSAGE>
+    </Return>
+</Message>
+
+2018.10.17 晴
+1.rubbing科室使用 交谈
+--2.把Mask和PR胶的OIC检查一下包括array和cf
+--	Array CF Cell：Mask
+--	Array CF:PR	
+3.固定的几款产品 在flow上添加站点
+
+2018.10.18
+B4A215FH5V404 在8ATPE13帮忙注册一下吧  工位：8100-00 215ADSH2_PVX
+
+2018.10.23
+dubbox 推送 个推 蝴蝶 LBS地理围栏（Geo-fencing）
+
+2018.10.24
+反射相关：
+import java.lang.reflect.*;
+在java里提供了一个叫做reflect的库，这个库里封装了Method,Constructor,field,Proxy,InvocationHandler 等类
+
+源代码阅读进阶：
+		   1.入口构造以及页面调用方式的具体实现，如果阅读时看到工具类和工具函数，尽量去熟悉一下。这一步的分析可以学习到源代码的系统架构方式。
+
+           2.分析源代码用到的工具类和工具函数，这样可以学到很多程序编写技巧。可以提升自己编程功力。
+
+           3.结合一些安全规则，研究这个源代码是怎样实现安全方面的设计的。这样可以提高自己在安全方面的意识和功力。
+
+           4.如果有模板引擎的话，研究一下源代码的模板引擎。大致从实现方式，效率，易用性等几个方面去考虑。
+
+           5.研究系统的各个功能模块，这样既能学习编程技巧还能打开自己的编程思路，下次遇到类似的东东就心里有谱了。
+
+           6.研究系统所用到设计模式，一样的功能实现，用到的设计模式可能相差很多，对比我们之前所作的东东分析设计模式，是提升我们驾驭代码的不二法门。
+
+           7.研究源代码对访问压力，执行效率，系统效率，数据库查询的优化。
+
+		   
+		   
+		   
+添加字段的语法：alter table tablename add (column datatype [default value][null/not null],….);
+
+修改字段的语法：alter table tablename modify (column datatype [default value][null/not null],….);
+
+删除字段的语法：alter table tablename drop (column);
+
+comment  on  column  表名.字段名   is  '注释内容';
+
+增加一个字段：
+alter table test1
+add (name varchar2(30) default ‘无名氏’ not null);		   
+		   
+
+2018.11.09 晴
+
+AOI Reapir
+B4A096WX5V502 
+
+2018.11.23
+
+NullPointKeySignal : NullPointKeySignal: Key can't be null [DataKey=FactoryName:ARRAY,
+ProcessFlowName:ATNMP34,ProcessFlowVersion:] [Sql=select]  
+B4A236FH5T402这个产品创建lotID报错了
+
+注意：productSpec表里processFlowVersion字段不能为空。
+
+
+--oracle 数据库同步方案
+
+--开发囧点
+	不一样的前提，不一样的重心（用户体验，程序页面共用），
+
+	
+oracle 实现数据库同步方案
+Oracle数据库数据同步方案
+一、比较原始的方案：触发器/Job/快照+dblink的方式，可实现同步和定时刷新；
+	二台不同的数据库服务器，从一台数据库服务器A的一个用户读取另一台数据库服务器B下某个用户的数据，可以通过dblink来完成。
+
+二、通过物化视图定时刷新来实现数据同步。物化视图刷新方式有增量刷新和完全刷新两种模式；
+
+三、高级复制，分为多主复制和物化视图复制两种模式。其中多主复制能进行双向同步复制和异步复制；物化视图用于单向复制，定时刷新，与第二条类似；
+
+四、流复制，可实现实时和非实时同步；
+
+五、GoldenGate复制，Oracle新买的复制产品，后面应当会取代流复制。它不仅能提供Oracle数据库之间的数据复制支持，还支持在不同种数据库之间的数据同步，也可设置实时和非实时同步；
+
+六、DataGurd，此技术主要用于容灾备份，是整个库级别的备份。
+
+其中第一、二和三采用的是Oracle数据库内部的机制来实现；而第四、五和六采用挖掘数据库日志的方式实现；后三种在性能上会更好一些。
+
+
+
+备库
+1.Dataguard 高可用，容灾能力强
+2.流复制 
+	2.1局部复制 stream可以只复制某些表或者某些模型
+	2.2异构环境 充分利用现有的设备与技术
+	2.3远程容灾 stream对网络的要求较dataguarg低
+--
+视图
+作用：
+1.使数据简单化
+2.表结构得到补充
+3.增强安全--暴露部分字段
+----------------------------------------------------------------------------------------------------------------------------------------
+
+20190111
+
+select s.s_name,s.s_age,s.s_class
+    -> from student as s,(
+    -> select max(s_age) as s_age,s_class
+    -> from student
+    -> group by s_class) as temp
+    -> where s.s_age = temp.s_age and s.s_class = temp.s_class;
+
+	
+----------------------------------------------------------------------------------------------------------------------------------------
+
+修改启动端口和关闭端口：
+进入D:\div\tomcat7-8081\conf\目录，打开server.xml文件，修改下面两个地方：
+（1）<Server port="8006" shutdown="SHUTDOWN">
+修改这个port=”8006”，原来默认的为：8005，使得它的关闭端口和另一个关闭端口不发生冲突。
+（2）<Connector port="8081" maxHttpHeaderSize="8192"
+               maxThreads="150" minSpareThreads="25" maxSpareThreads="75"
+               enableLookups="false" redirectPort="8443" acceptCount="100"
+               connectionTimeout="20000" disableUploadTimeout="true" />
+修改port=”8081”，原来默认的为“8080”，使得它的连接端口和另一个不冲突。
+（3）<Connector port="8009" protocol="AJP/1.3" redirectPort="8443" />
+修改这个port=”8010”，原来默认的为：8009，AJP 1.3 Connector定义的地方。
+
+
+--------------------------------------
+CF PR上线问题（0402）
+
+1.测试
+ 1.1productspec与materialspec对应的功能测试
+ 1.2混合使用，上传测试
+
+2.上线准备
+ 2.1基础数据准备
+ 2.1中转服务建立（测试与量产分开）
+
+3.使用培训注意点
+ 3.1相对于CF PR的1+7中，7的pda对于料不能交替使用（出库到下机上传）
+备注：
+
+
+------------------------------------------------------------------------------------------------------------------
+2019.05.06
+GitHub 是一个用于使用Git版本控制系统的项目的基于互联网的存取服务,
+GitHub于2008年2月运行。在2010年6月，GitHub宣布它现在已经提供可1百万项目，可以说非常强大。
+Github虽然是一个代码仓库，但是Github还免费为大家提供一个免费开源Github Pages空间，利用
+这个空间你可以搭建轻量级的博客系统，绑定自己的域名，存放一些图片和文件等等。
+关于Github，其实我在介绍phpfog空间时以前我也接触过，不过那只是申请一个Git账号，并不知道
+Github还会提供免费空间可供使用。直接有好友留言（具体在哪篇文章我找了好久也没有找到）说
+可以试试Github Pages。
+于是我这几天都在研究怎么用Github Pages搭建一个个人博客，可惜由于对代码和git命令不熟悉，
+磕磕碰碰，一直到现在才把Github Pages免费空间给熟悉了，故写个教程记下整个过程。
+在网上搜索Github Pages免费空间使用教程，比较少，而且不全面，或者说不适合像我这样从未接
+触过Github的人，有几次的按照网上的教程来做都失败了，主要是好步骤不知道如何操作。
+中途也想到过放弃Github Pages，因为这样一个“如此麻烦”的空间即使搞定估计用途也不大。但是
+有两个原因促使我认为有必要向大家介绍它：老牌开源的空间——稳定、不会随便删除用户数据——至
+少我这么认为、没有外链流量限制。
+
+2019.05.08
+1、github实战--创建组织
+在故事中，生意人可以创建项目和组织。对应到github上的用户可以创建仓库和组织。
+2、github实战--在组织中创建仓库
+当创建完组织后，来看看组织的结构
+在Organ-Name 组织下，创建一个仓库
+3、github实战--在组织中创建team
+团队创建完成后，默认这个团队的成员只有一个人，就是该账号。下面就开始给这个team添加其他成员。
+邀请成功以后，需要被邀请人去自己的邮箱点击一下，确认邀请
+4、github实战--在组织中给仓库添加team并且设置权限。
+可以看到，仓库对team的权限控制有三种
+Admin 管理者权限(只能 read、clone、push、给仓库添加成员 )
+Write 写权限(只能 read、clone、push)
+Read 读权限(只能 read、clone) 
+--------------------- 
+
+
+
 
 随笔 - 25  文章 - 2  评论 - 1
 Git使用总结(包含Git Bash和Git GUI的使用)（转自CSDN）
@@ -252,7 +1359,7 @@ git init
 git remote add origin git@github.com:(此处为GitHub用户名)/r4.git
 git push -u origin master
 
---yuancheng error
+--yuancheng error 原因:上传之前应该先下载更新，保证版本一致
 
 To https://github.com/shanph1888/MyRepository.git
  ! [rejected]        master -> master (fetch first)
