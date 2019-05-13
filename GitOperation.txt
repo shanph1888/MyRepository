@@ -1,0 +1,12 @@
+
+git init
+git add .
+git commit -m "XXX"
+git remote add origin url
+git pull origin master
+git push -u origin master 
+git push -f 强制上传
+
+git reflog查看还原记录
+git reset +版本号 还原到每个版本
+git remote -v 查看当前远程仓库地址
