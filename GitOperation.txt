@@ -10,3 +10,50 @@ git push -f 强制上传
 git reflog查看还原记录
 git reset +版本号 还原到每个版本
 git remote -v 查看当前远程仓库地址
+
+linux命令：
+pwd： 显示当前工作目录&& 
+cd directory_path： 更改目录&& 
+cd：更改为主目录&& 
+mkdir directory_name： 创建目录&& 
+rmdir directory_name： 删除空目录&&　 
+ls： 列举当前目录下的文件和目录&& 
+ls -a： 列举所有文件或目录包括隐藏点文件& 
+lsf： 列举文件并用/ 标记目录名& 
+vi file_name： 创建或编辑文件 
+more file_name： 显示文件内容 (按q 退出) 
+head file_name： 显示文件的前10 行 
+tail file_name： 显示文件的后10 行 
+cp file_name file_copy： 复制文件 
+mv old_file new_file： 将文件重命名为新文件名 
+cat file1 >> file2： 将file1 附加到file2 的结尾处 
+rm file： 删除file& 
+rm -rf dir_name： 删除目录dir_name 及其所有文件 
+find .-name 'x*'： 在当前目录和子目录中查找以x 开头的文件 
+grep word *： 在当前目录下的所有文件中查找word 一词的所有匹配 
+
+grep word *： 在当前目录下的所有文件中查找word 一词的所有匹配 
+sort listfile： 按字母顺序对listfile 进行排序 
+date： 显示日期和时间 
+alias： 列举所有命令的别名 
+man command_name： 查找HP-UX 命令信息 
+passwd： 创建或更改口令 
+ll file_name： 显示文件的权限 
+ll -d directory_name： 显示目录的权限 
+chmod class=permissions name： 更改文件或目录权限 
+chown user name： 更改文件或目录的所有权 
+ps -ef： 列举当前进程状态和PID& 
+kill PID： 终止进程 
+passwd： 创建或更改口令 
+
+-rw- r-- r--
+tar zvf
+c建立压缩 t查看压缩 x解压缩
+
+------------------------------------------------
+程序安装：
+
+
+
+
+
